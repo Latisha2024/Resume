@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Resume & Cover Letter Generator</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    textarea, input { width: 100%; padding: 10px; margin: 10px 0; }
+    button { padding: 10px 20px; }
+    #output { white-space: pre-wrap; background: #f4f4f4; padding: 15px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Resume & Cover Letter Generator</h1>
+  <form id="resumeForm">
+    <input name="name" placeholder="Your Name" required><br>
+    <textarea name="education" placeholder="Your Education" required></textarea><br>
+    <textarea name="experience" placeholder="Your Work Experience" required></textarea><br>
+    <input name="job_role" placeholder="Target Job Role" required><br>
+    <button type="submit">Generate</button>
+  </form>
+
+  <div id="output"></div>
+
+  <script>
+    document.getElementById('resumeForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      const res = await fetch('/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      document.getElementById('output').innerHTML = result.text.replace(/\n/g, '<br>');
+
+    });
+  </script>
+</body>
+</html>
