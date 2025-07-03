@@ -4,7 +4,7 @@ import requests
 app = Flask(__name__)
 
 # Replace with your actual OpenRouter API key
-OPENROUTER_API_KEY = "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"
+OPENROUTER_API_KEY = "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"
 MODEL = "meta-llama/llama-3.3-70b-instruct"  # You can change to other supported models
 
 @app.route('/')
